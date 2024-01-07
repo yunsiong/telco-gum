@@ -333,8 +333,8 @@ if ffi_dep.found()
   gum_internal_deps += ffi_dep
 endif
 
-gum = library('frida-gum-' + api_version, gum_sources + gum_enums,
-  c_args: frida_component_cflags,
+gum = library('telco-gum-' + api_version, gum_sources + gum_enums,
+  c_args: telco_component_cflags,
   include_directories: gum_incdirs,
   link_args: extra_libs_private,
   dependencies: gum_internal_deps + extra_deps,
@@ -370,7 +370,7 @@ gum_dep = declare_dependency(link_with: gum,
 
 pkg = import('pkgconfig')
 pkg.generate(gum,
-  filebase: 'frida-gum-' + api_version,
+  filebase: 'telco-gum-' + api_version,
   name: 'Gum',
   version: gum_version,
   description: 'Low-level code instrumentation library',
@@ -381,4 +381,4 @@ pkg.generate(gum,
   libraries_private: extra_libs_private,
 )
 
-meson.override_dependency('frida-gum-' + api_version, gum_dep)
+meson.override_dependency('telco-gum-' + api_version, gum_dep)

@@ -510,7 +510,7 @@ gum_v8_script_create_context (GumV8Script * self,
     self->inspector->idleStarted ();
 
     auto global_templ = ObjectTemplate::New (isolate);
-    _gum_v8_core_init (&self->core, self, gumjs_frida_source_map,
+    _gum_v8_core_init (&self->core, self, gumjs_telco_source_map,
         gum_v8_script_emit, gum_v8_script_backend_get_scheduler (self->backend),
         isolate, global_templ);
     _gum_v8_kernel_init (&self->kernel, &self->core, global_templ);

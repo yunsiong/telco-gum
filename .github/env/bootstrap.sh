@@ -12,7 +12,7 @@ outdir=/tmp
 set -ex
 
 mkdir -p $outdir/toolchain $outdir/native-sdk $outdir/cross-sdk
-deps_url=https://build.frida.re/deps/20230622
+deps_url=https://build.telco.re/deps/20230622
 curl $deps_url/toolchain-$build_os_arch.tar.bz2 | tar -C $outdir/toolchain  -xjf -
 curl $deps_url/sdk-$build_os_arch.tar.bz2       | tar -C $outdir/native-sdk -xjf -
 curl $deps_url/sdk-$host_os_arch.tar.bz2        | tar -C $outdir/cross-sdk  -xjf -
@@ -21,7 +21,7 @@ for machine in native cross; do
   (
     echo "#!/bin/sh"
     echo "export PKG_CONFIG_PATH=$outdir/$machine-sdk/lib/pkgconfig"
-    echo "exec $outdir/toolchain/bin/pkg-config --define-variable=frida_sdk_prefix=$outdir/$machine-sdk --static \"\$@\""
+    echo "exec $outdir/toolchain/bin/pkg-config --define-variable=telco_sdk_prefix=$outdir/$machine-sdk --static \"\$@\""
   ) > $outdir/$machine-pkg-config
   chmod +x $outdir/$machine-pkg-config
 done

@@ -317,13 +317,13 @@ gum_inspector_server_on_list (SoupServer * server,
   json_builder_add_string_value (builder, self->title);
 
   json_builder_set_member_name (builder, "description");
-  json_builder_add_string_value (builder, "Frida Agent");
+  json_builder_add_string_value (builder, "Telco Agent");
 
   json_builder_set_member_name (builder, "url");
   json_builder_add_string_value (builder, "file://");
 
   json_builder_set_member_name (builder, "faviconUrl");
-  json_builder_add_string_value (builder, "https://frida.re/favicon.ico");
+  json_builder_add_string_value (builder, "https://telco.re/favicon.ico");
 
   json_builder_set_member_name (builder, "type");
   json_builder_add_string_value (builder, "node");
@@ -390,7 +390,7 @@ gum_inspector_server_on_version (SoupServer * server,
   json_builder_begin_object (builder);
 
   json_builder_set_member_name (builder, "Browser");
-  json_builder_add_string_value (builder, "Frida/v" FRIDA_VERSION);
+  json_builder_add_string_value (builder, "Telco/v" TELCO_VERSION);
 
   json_builder_set_member_name (builder, "Protocol-Version");
   json_builder_add_string_value (builder, "1.1");

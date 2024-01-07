@@ -19,7 +19,7 @@ set -x
 
 rm -rf build
 meson setup \
-    --cross-file $src/../../../../build/frida*-$os-$arch.txt \
+    --cross-file $src/../../../../build/telco*-$os-$arch.txt \
     --libdir "$libdir" \
     --strip \
     -Dstem_suffix="-$os-$arch" \

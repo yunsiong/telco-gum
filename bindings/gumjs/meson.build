@@ -258,8 +258,8 @@ gumjs_deps = [
   sqlite_dep,
 ]
 
-gumjs = library('frida-gumjs-' + api_version, gumjs_sources,
-  c_args: frida_component_cflags,
+gumjs = library('telco-gumjs-' + api_version, gumjs_sources,
+  c_args: telco_component_cflags,
   override_options: [
     'cpp_std=c++17',
     'cpp_eh=none',
@@ -276,11 +276,11 @@ gumjs_dep = declare_dependency(link_with: gumjs,
 )
 
 pkg = import('pkgconfig')
-pkg.generate(filebase: 'frida-gumjs-' + api_version,
+pkg.generate(filebase: 'telco-gumjs-' + api_version,
   name: 'GumJS',
   version: gum_version,
   description: 'Gum JavaScript bindings',
-  requires: ['frida-gum-' + api_version, 'gio-2.0', 'json-glib-1.0'],
+  requires: ['telco-gum-' + api_version, 'gio-2.0', 'json-glib-1.0'],
   requires_private: ['libffi', 'capstone'] + gumjs_extra_requires,
   subdirs: install_header_basedir,
   libraries: [gumjs],
@@ -290,7 +290,7 @@ pkg.generate(filebase: 'frida-gumjs-' + api_version,
   ],
 )
 
-meson.override_dependency('frida-gumjs-' + api_version, gumjs_dep)
+meson.override_dependency('telco-gumjs-' + api_version, gumjs_dep)
 
 gumjs_inspector_headers = [
   'guminspectorserver.h',
@@ -308,8 +308,8 @@ gumjs_inspector_deps = [
   libsoup_dep,
 ]
 
-gumjs_inspector = library('frida-gumjs-inspector-' + api_version, gumjs_inspector_sources,
-  c_args: frida_component_cflags,
+gumjs_inspector = library('telco-gumjs-inspector-' + api_version, gumjs_inspector_sources,
+  c_args: telco_component_cflags,
   dependencies: gumjs_inspector_deps,
   install: true,
 )
@@ -319,7 +319,7 @@ gumjs_inspector_dep = declare_dependency(link_with: gumjs_inspector,
   dependencies: gumjs_inspector_deps,
 )
 
-pkg.generate(filebase: 'frida-gumjs-inspector-' + api_version,
+pkg.generate(filebase: 'telco-gumjs-inspector-' + api_version,
   name: 'GumJS Inspector',
   version: gum_version,
   description: 'GumJS Inspector components',
@@ -327,4 +327,4 @@ pkg.generate(filebase: 'frida-gumjs-inspector-' + api_version,
   libraries: [gumjs_inspector],
 )
 
-meson.override_dependency('frida-gumjs-inspector-' + api_version, gumjs_inspector_dep)
+meson.override_dependency('telco-gumjs-inspector-' + api_version, gumjs_inspector_dep)

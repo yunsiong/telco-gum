@@ -83,7 +83,7 @@ main (gint argc,
           "\"teardown\":\"full\""
       "}";
   raw_config = g_base64_encode ((const guchar *) config, strlen (config));
-  gum_darwin_mapper_add_apple_parameter (mapper, "frida_gadget_config",
+  gum_darwin_mapper_add_apple_parameter (mapper, "telco_gadget_config",
       raw_config);
   g_free (raw_config);
 
@@ -110,7 +110,7 @@ main (gint argc,
   destructor =
       GSIZE_TO_POINTER (gum_darwin_mapper_destructor (mapper));
   entrypoint =
-      GSIZE_TO_POINTER (gum_darwin_mapper_resolve (mapper, "frida_agent_main"));
+      GSIZE_TO_POINTER (gum_darwin_mapper_resolve (mapper, "telco_agent_main"));
 
   g_timer_start (timer);
   constructor ();

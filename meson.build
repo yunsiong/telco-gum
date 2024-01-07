@@ -1,4 +1,4 @@
-project('frida-gum', 'c', 'cpp',
+project('telco-gum', 'c', 'cpp',
   version: '1.0.0',
   meson_version: '>=0.59.0',
   default_options: [
@@ -48,11 +48,11 @@ endif
 
 cc = meson.get_compiler('c')
 
-frida_component_cflags = []
+telco_component_cflags = []
 ndebug = get_option('b_ndebug')
 optimize_for_prod = ndebug == 'true' or (ndebug == 'if-release' and not get_option('debug'))
 if optimize_for_prod
-  frida_component_cflags += [
+  telco_component_cflags += [
     '-DG_DISABLE_ASSERT',
     '-DG_DISABLE_CHECKS',
     '-DG_DISABLE_CAST_CHECKS',
@@ -137,8 +137,8 @@ extra_gir_args_private = []
 
 cdata = configuration_data()
 cdata.set_quoted('GUM_VERSION', gum_version)
-if cc.get_define('FRIDA_VERSION') == ''
-  cdata.set_quoted('FRIDA_VERSION', gum_version)
+if cc.get_define('TELCO_VERSION') == ''
+  cdata.set_quoted('TELCO_VERSION', gum_version)
 endif
 
 static = get_option('default_library') == 'static'
@@ -430,11 +430,11 @@ else
 endif
 
 if glib_dep.type_name() == 'internal' or cc.has_function('g_thread_set_callbacks', dependencies: [glib_dep])
-  cdata.set('HAVE_FRIDA_GLIB', 1)
+  cdata.set('HAVE_TELCO_GLIB', 1)
 endif
 
 if ffi_dep.found() and (ffi_dep.type_name() == 'internal' or cc.has_function('ffi_set_mem_callbacks', dependencies: [ffi_dep]))
-  cdata.set('HAVE_FRIDA_LIBFFI', 1)
+  cdata.set('HAVE_TELCO_LIBFFI', 1)
 endif
 
 if cc.has_function('pthread_attr_getstack',
@@ -573,15 +573,15 @@ if have_gumjs
   sqlite_dep = dependency('sqlite3', required: get_option('database'))
   cdata.set('HAVE_SQLITE', sqlite_dep.found())
 
-  if get_option('frida_objc_bridge').allowed()
+  if get_option('telco_objc_bridge').allowed()
     cdata.set('HAVE_OBJC_BRIDGE', 1)
   endif
 
-  if get_option('frida_swift_bridge').allowed()
+  if get_option('telco_swift_bridge').allowed()
     cdata.set('HAVE_SWIFT_BRIDGE', 1)
   endif
 
-  if get_option('frida_java_bridge').allowed()
+  if get_option('telco_java_bridge').allowed()
     cdata.set('HAVE_JAVA_BRIDGE', 1)
   endif
 
@@ -607,7 +607,7 @@ configure_file(
 
 add_project_arguments(
   (cc.get_argument_syntax() == 'msvc') ? '/FI' : '-include', meson.current_build_dir() / 'config.h',
-  '-DG_LOG_DOMAIN="Frida"',
+  '-DG_LOG_DOMAIN="Telco"',
   '-DGLIB_VERSION_MIN_REQUIRED=GLIB_VERSION_2_56',
   '-DG_DISABLE_DEPRECATED',
   language: languages)
@@ -656,7 +656,7 @@ if host_os_family == 'linux' or host_os_family == 'qnx'
   ]
 endif
 
-install_header_basedir = 'frida-' + api_version
+install_header_basedir = 'telco-' + api_version
 install_header_subdir = install_header_basedir + '/gum'
 
 subdir('ext')

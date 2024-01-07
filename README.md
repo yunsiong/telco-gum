@@ -2,7 +2,7 @@
 
 Cross-platform instrumentation and introspection library written in C.
 
-This library is consumed by [frida-core][] through its JavaScript bindings,
+This library is consumed by [telco-core][] through its JavaScript bindings,
 [GumJS][].
 
 Provides:
@@ -47,31 +47,31 @@ Provides:
 ## Binaries
 
 Download a devkit for statically linking into your own projects from the
-Frida [releases][] page.
+Telco [releases][] page.
 
 
-[frida-core]: https://github.com/frida/frida-core
-[GumJS]: https://github.com/frida/frida-gum/tree/master/bindings/gumjs
-[Interceptor]: https://github.com/frida/frida-gum/blob/master/gum/guminterceptor.h
-[Stalker]: https://github.com/frida/frida-gum/blob/master/gum/gumstalker.h
-[MemoryAccessMonitor]: https://github.com/frida/frida-gum/blob/master/gum/gummemoryaccessmonitor.h
-[process]: https://github.com/frida/frida-gum/blob/master/gum/gumprocess.h
-[Memory]: https://github.com/frida/frida-gum/blob/master/gum/gummemory.h
-[DebugSymbol]: https://github.com/frida/frida-gum/blob/master/gum/gumsymbolutil.h
-[Backtracer]: https://github.com/frida/frida-gum/blob/master/gum/gumbacktracer.h
-[Kernel]: https://github.com/frida/frida-gum/blob/master/gum/gumkernel.h
-[Gum.Darwin.Mapper]: https://github.com/frida/frida-gum/blob/master/gum/backend-darwin/gumdarwinmapper.h
-[X86Writer]: https://github.com/frida/frida-gum/blob/master/gum/arch-x86/gumx86writer.h
-[ArmWriter]: https://github.com/frida/frida-gum/blob/master/gum/arch-arm/gumarmwriter.h
-[ThumbWriter]: https://github.com/frida/frida-gum/blob/master/gum/arch-arm/gumthumbwriter.h
-[Arm64Writer]: https://github.com/frida/frida-gum/blob/master/gum/arch-arm64/gumarm64writer.h
-[MipsWriter]: https://github.com/frida/frida-gum/blob/master/gum/arch-mips/gummipswriter.h
-[X86Relocator]: https://github.com/frida/frida-gum/blob/master/gum/arch-x86/gumx86relocator.h
-[ArmRelocator]: https://github.com/frida/frida-gum/blob/master/gum/arch-arm/gumarmrelocator.h
-[ThumbRelocator]: https://github.com/frida/frida-gum/blob/master/gum/arch-arm/gumthumbrelocator.h
-[Arm64Relocator]: https://github.com/frida/frida-gum/blob/master/gum/arch-arm64/gumarm64relocator.h
-[MipsRelocator]: https://github.com/frida/frida-gum/blob/master/gum/arch-mips/gummipsrelocator.h
-[Heap]: https://github.com/frida/frida-gum/tree/master/libs/gum/heap
-[Profiling]: https://github.com/frida/frida-gum/tree/master/libs/gum/prof
-[worst-case inspector]: https://github.com/frida/frida-gum/blob/7e4c5b547b035ae05d2f9e160652101bf741e6c3/libs/gum/prof/gumprofiler.h#L40-L42
-[releases]: https://github.com/frida/frida/releases
+[telco-core]: https://github.com/telco/telco-core
+[GumJS]: https://github.com/telco/telco-gum/tree/master/bindings/gumjs
+[Interceptor]: https://github.com/telco/telco-gum/blob/master/gum/guminterceptor.h
+[Stalker]: https://github.com/telco/telco-gum/blob/master/gum/gumstalker.h
+[MemoryAccessMonitor]: https://github.com/telco/telco-gum/blob/master/gum/gummemoryaccessmonitor.h
+[process]: https://github.com/telco/telco-gum/blob/master/gum/gumprocess.h
+[Memory]: https://github.com/telco/telco-gum/blob/master/gum/gummemory.h
+[DebugSymbol]: https://github.com/telco/telco-gum/blob/master/gum/gumsymbolutil.h
+[Backtracer]: https://github.com/telco/telco-gum/blob/master/gum/gumbacktracer.h
+[Kernel]: https://github.com/telco/telco-gum/blob/master/gum/gumkernel.h
+[Gum.Darwin.Mapper]: https://github.com/telco/telco-gum/blob/master/gum/backend-darwin/gumdarwinmapper.h
+[X86Writer]: https://github.com/telco/telco-gum/blob/master/gum/arch-x86/gumx86writer.h
+[ArmWriter]: https://github.com/telco/telco-gum/blob/master/gum/arch-arm/gumarmwriter.h
+[ThumbWriter]: https://github.com/telco/telco-gum/blob/master/gum/arch-arm/gumthumbwriter.h
+[Arm64Writer]: https://github.com/telco/telco-gum/blob/master/gum/arch-arm64/gumarm64writer.h
+[MipsWriter]: https://github.com/telco/telco-gum/blob/master/gum/arch-mips/gummipswriter.h
+[X86Relocator]: https://github.com/telco/telco-gum/blob/master/gum/arch-x86/gumx86relocator.h
+[ArmRelocator]: https://github.com/telco/telco-gum/blob/master/gum/arch-arm/gumarmrelocator.h
+[ThumbRelocator]: https://github.com/telco/telco-gum/blob/master/gum/arch-arm/gumthumbrelocator.h
+[Arm64Relocator]: https://github.com/telco/telco-gum/blob/master/gum/arch-arm64/gumarm64relocator.h
+[MipsRelocator]: https://github.com/telco/telco-gum/blob/master/gum/arch-mips/gummipsrelocator.h
+[Heap]: https://github.com/telco/telco-gum/tree/master/libs/gum/heap
+[Profiling]: https://github.com/telco/telco-gum/tree/master/libs/gum/prof
+[worst-case inspector]: https://github.com/telco/telco-gum/blob/7e4c5b547b035ae05d2f9e160652101bf741e6c3/libs/gum/prof/gumprofiler.h#L40-L42
+[releases]: https://github.com/telco/telco/releases

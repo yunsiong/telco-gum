@@ -19,13 +19,13 @@
     <ClInclude Include="string.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="frida-gum32-lib">
+    <Filter Include="telco-gum32-lib">
       <UniqueIdentifier>{03327442-c52b-47a0-87b6-77585055cb08}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\build\tmp-windows\Win32-Release\gum-32\gum-32.lib">
-      <Filter>frida-gum32-lib</Filter>
+      <Filter>telco-gum32-lib</Filter>
     </Library>
   </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
-import frida
-from frida_tools.application import Reactor
+import telco
+from telco_tools.application import Reactor
 from pathlib import Path
 import subprocess
 import sys
@@ -14,7 +14,7 @@ class Controller:
 
         runner_src_dir = Path(__file__).parent
         self._runner_js = runner_src_dir / "runner.js"
-        self._runner_dylib = runner_src_dir.parent.parent.parent.parent / "build" / "tmp-macos-arm64" / "frida-gum" / "tests" / "core" / "swiftapiresolver" / "libtestswiftapiresolver.dylib"
+        self._runner_dylib = runner_src_dir.parent.parent.parent.parent / "build" / "tmp-macos-arm64" / "telco-gum" / "tests" / "core" / "swiftapiresolver" / "libtestswiftapiresolver.dylib"
 
         self._device = None
         self._session = None
@@ -25,7 +25,7 @@ class Controller:
         self._reactor.run()
 
     def _start(self):
-        device = frida.get_remote_device()
+        device = telco.get_remote_device()
         self._device = device
 
         session = device.attach("Xcode")

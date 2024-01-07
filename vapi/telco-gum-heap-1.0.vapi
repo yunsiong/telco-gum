@@ -1,4 +1,4 @@
-[CCode (cheader_filename = "gum/gum-heap.h", gir_namespace = "FridaGum", gir_version = "1.0")]
+[CCode (cheader_filename = "gum/gum-heap.h", gir_namespace = "TelcoGum", gir_version = "1.0")]
 namespace Gum {
 	public class InstanceTracker : GLib.Object {
 		public InstanceTracker ();

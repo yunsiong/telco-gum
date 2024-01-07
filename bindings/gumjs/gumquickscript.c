@@ -460,7 +460,7 @@ gum_quick_script_create_context (GumQuickScript * self,
 
   _gum_quick_core_init (core, self, ctx, global_obj,
       gum_quick_script_backend_get_scope_mutex (self->backend),
-      program, gumjs_frida_source_map, &self->interceptor, &self->stalker,
+      program, gumjs_telco_source_map, &self->interceptor, &self->stalker,
       (GumQuickMessageEmitter) gum_quick_script_emit, self,
       gum_quick_script_backend_get_scheduler (self->backend));
 
@@ -972,7 +972,7 @@ _gum_quick_script_make_worker (GumQuickScript * self,
     GumQuickScope scope = { core, NULL, };
 
     _gum_quick_core_init (core, self, ctx, global_obj, &worker->scope_mutex,
-        self->program, gumjs_frida_source_map, NULL, NULL,
+        self->program, gumjs_telco_source_map, NULL, NULL,
         (GumQuickMessageEmitter) gum_quick_worker_emit, worker,
         worker->scheduler);
 
@@ -1201,7 +1201,7 @@ gum_quick_worker_run (GumQuickWorker * self)
         self->asset->name);
 
     val = JS_Eval (ctx, init_code, strlen (init_code),
-        "/_frida_worker_runtime.js",
+        "/_telco_worker_runtime.js",
         JS_EVAL_TYPE_GLOBAL | JS_EVAL_FLAG_STRICT);
     if (!JS_IsException (val))
       self->state = GUM_WORKER_RUNNING;

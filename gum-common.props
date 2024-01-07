@@ -3,7 +3,7 @@
 
   <ItemDefinitionGroup>
     <ClCompile>
-      <PreprocessorDefinitions>GUM_STATIC;_CRT_SECURE_NO_WARNINGS;$(FridaGumDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GUM_STATIC;_CRT_SECURE_NO_WARNINGS;$(TelcoGumDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir)gum;$(ProjectDir)gum\arch-x86;$(ProjectDir)gum;$(ProjectDir)libs;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -233,7 +233,7 @@ $(GLibMkenums) --output "$(IntDir)gum\%(Filename)" --template %(Identity) @(ClIn
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="vapi\frida-gum-1.0.vapi" />
+    <None Include="vapi\telco-gum-1.0.vapi" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,7 @@
  *
  * If you use [func@Gum.init_embedded] to initialize Gum, any resources created
  * by libffi and GLib will be cloaked automatically. (Assuming that Gum was
- * built with Frida's versions of these two libraries.)
+ * built with Telco's versions of these two libraries.)
  *
  * This means you typically only need to manage cloaked resources if you use a
  * non-GLib API to create a given resource.

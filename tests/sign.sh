@@ -22,7 +22,7 @@ cp "$runner_binary" "$signed_runner_binary"
 
 case $host_os in
   macos)
-    "$CODESIGN" -f -s "$MACOS_CERTID" -i "re.frida.GumTests" "$signed_runner_binary" || exit 1
+    "$CODESIGN" -f -s "$MACOS_CERTID" -i "re.telco.GumTests" "$signed_runner_binary" || exit 1
     ;;
   ios)
     "$CODESIGN" -f -s "$IOS_CERTID" --entitlements "$runner_entitlements" "$signed_runner_binary" || exit 1

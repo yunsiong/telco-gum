@@ -28,8 +28,8 @@ endif
 
 install_headers(gumpp_headers, subdir: install_header_basedir + '/gumpp')
 
-gumpp = shared_library('frida-gumpp-' + api_version, gumpp_sources,
-  c_args: frida_component_cflags,
+gumpp = shared_library('telco-gumpp-' + api_version, gumpp_sources,
+  c_args: telco_component_cflags,
   override_options: [
     'cpp_std=c++14',
     'cpp_eh=default',
@@ -47,11 +47,11 @@ gumpp_dep = declare_dependency(link_with: gumpp,
 )
 
 pkg = import('pkgconfig')
-pkg.generate(filebase: 'frida-gumpp-' + api_version,
+pkg.generate(filebase: 'telco-gumpp-' + api_version,
   name: 'Gum++',
   version: gum_version,
   description: 'Gum C++ bindings',
-  requires_private: ['frida-gum-' + api_version],
+  requires_private: ['telco-gum-' + api_version],
   subdirs: install_header_basedir,
   libraries: [gumpp],
 )

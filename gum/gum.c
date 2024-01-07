@@ -30,7 +30,7 @@
 #ifdef HAVE_WINDOWS
 # include <windows.h>
 #endif
-#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_FRIDA_LIBFFI)
+#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_TELCO_LIBFFI)
 # include <ffi.h>
 #endif
 
@@ -47,11 +47,11 @@ struct _GumInternalThreadDetails
 
 static void gum_destructor_invoke (GumDestructorFunc destructor);
 
-#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_FRIDA_LIBFFI)
+#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_TELCO_LIBFFI)
 static void gum_on_ffi_allocate (void * base_address, size_t size);
 static void gum_on_ffi_deallocate (void * base_address, size_t size);
 #endif
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
 static void gum_on_thread_init (void);
 static void gum_on_thread_realize (void);
 static void gum_on_thread_dispose (void);
@@ -120,7 +120,7 @@ static gboolean gum_initialized = FALSE;
 static GSList * gum_early_destructors = NULL;
 static GSList * gum_final_destructors = NULL;
 
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
 static GPrivate gum_internal_thread_details_key = G_PRIVATE_INIT (
     (GDestroyNotify) gum_internal_thread_details_free);
 #endif
@@ -182,7 +182,7 @@ gum_do_init (void)
   };
 #endif
 
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
   glib_init ();
 # ifndef GUM_DIET
   gobject_init ();
@@ -221,7 +221,7 @@ gum_destructor_invoke (GumDestructorFunc destructor)
 void
 gum_init_embedded (void)
 {
-#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_FRIDA_LIBFFI)
+#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_TELCO_LIBFFI)
   ffi_mem_callbacks ffi_callbacks = {
     (void * (*) (size_t)) gum_malloc,
     (void * (*) (size_t, size_t)) gum_calloc,
@@ -230,7 +230,7 @@ gum_init_embedded (void)
     gum_on_ffi_deallocate
   };
 #endif
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
   GThreadCallbacks thread_callbacks = {
     gum_on_thread_init,
     gum_on_thread_realize,
@@ -242,7 +242,7 @@ gum_init_embedded (void)
     gum_on_fd_closed
   };
 #endif
-#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_FRIDA_GLIB) && \
+#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_TELCO_GLIB) && \
     !DEBUG_HEAP_LEAKS && !defined (HAVE_ASAN)
   GMemVTable mem_vtable = {
     gum_malloc,
@@ -278,10 +278,10 @@ gum_init_embedded (void)
 #endif
 
   gum_internal_heap_ref ();
-#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_FRIDA_LIBFFI)
+#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_TELCO_LIBFFI)
   ffi_set_mem_callbacks (&ffi_callbacks);
 #endif
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
   g_thread_set_callbacks (&thread_callbacks);
   g_platform_audit_set_fd_callbacks (&fd_callbacks);
 #endif
@@ -292,20 +292,20 @@ gum_init_embedded (void)
   }
   else
   {
-#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_FRIDA_GLIB)
+#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_TELCO_GLIB)
     g_mem_set_vtable (&mem_vtable);
 #endif
   }
 #else
   g_setenv ("G_SLICE", "always-malloc", TRUE);
 #endif
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
   glib_init ();
 #endif
   g_log_set_default_handler (gum_on_log_message, NULL);
   gum_do_init ();
 
-  g_set_prgname ("frida");
+  g_set_prgname ("telco");
 
 #if defined (HAVE_LINUX) && defined (HAVE_GLIBC)
   gum_libdl_prevent_unload ();
@@ -320,17 +320,17 @@ gum_deinit_embedded (void)
   g_assert (gum_initialized);
 
   gum_shutdown ();
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
   glib_shutdown ();
 #endif
 
   gum_clear_object (&gum_cached_interceptor);
 
   gum_deinit ();
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
   glib_deinit ();
 #endif
-#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_FRIDA_LIBFFI)
+#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_TELCO_LIBFFI)
   ffi_deinit ();
 #endif
   gum_internal_heap_unref ();
@@ -356,7 +356,7 @@ gum_recover_from_fork_in_child (void)
   _gum_exceptor_backend_recover_from_fork_in_child ();
 }
 
-#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_FRIDA_LIBFFI)
+#if !defined (GUM_USE_SYSTEM_ALLOC) && defined (HAVE_TELCO_LIBFFI)
 
 static void
 gum_on_ffi_allocate (void * base_address,
@@ -380,7 +380,7 @@ gum_on_ffi_deallocate (void * base_address,
 
 #endif
 
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
 
 static void
 gum_on_thread_init (void)

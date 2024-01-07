@@ -75,7 +75,7 @@ struct _GumCHeaderDetails
 
 enum _GumCHeaderKind
 {
-  GUM_CHEADER_FRIDA,
+  GUM_CHEADER_TELCO,
   GUM_CHEADER_TCC
 };
 

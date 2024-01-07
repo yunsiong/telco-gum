@@ -723,7 +723,7 @@ gum_cs_load_library (gpointer data)
 
   /*
    * CoreFoundation must be loaded by the main thread, so we should avoid
-   * loading it. This must be done by the user of frida-gum explicitly.
+   * loading it. This must be done by the user of telco-gum explicitly.
    */
   cf = dlopen ("/System/Library/Frameworks/"
       "CoreFoundation.framework/CoreFoundation",

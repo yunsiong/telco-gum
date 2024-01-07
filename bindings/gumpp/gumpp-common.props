@@ -3,7 +3,7 @@
 
   <ItemDefinitionGroup>
     <ClCompile>
-      <PreprocessorDefinitions>$(FridaGumDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>$(TelcoGumDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
 

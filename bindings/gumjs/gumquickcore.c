@@ -167,10 +167,10 @@ GUMJS_DECLARE_FUNCTION (gumjs_set_unhandled_exception_callback)
 GUMJS_DECLARE_FUNCTION (gumjs_set_incoming_message_callback)
 GUMJS_DECLARE_FUNCTION (gumjs_wait_for_event)
 
-GUMJS_DECLARE_GETTER (gumjs_frida_get_heap_size)
-GUMJS_DECLARE_FUNCTION (gumjs_frida_objc_load)
-GUMJS_DECLARE_FUNCTION (gumjs_frida_swift_load)
-GUMJS_DECLARE_FUNCTION (gumjs_frida_java_load)
+GUMJS_DECLARE_GETTER (gumjs_telco_get_heap_size)
+GUMJS_DECLARE_FUNCTION (gumjs_telco_objc_load)
+GUMJS_DECLARE_FUNCTION (gumjs_telco_swift_load)
+GUMJS_DECLARE_FUNCTION (gumjs_telco_java_load)
 
 GUMJS_DECLARE_FUNCTION (gumjs_script_evaluate)
 GUMJS_DECLARE_FUNCTION (gumjs_script_load)
@@ -385,13 +385,13 @@ static const JSCFunctionListEntry gumjs_root_entries[] =
   JS_CFUNC_DEF ("_waitForEvent", 0, gumjs_wait_for_event),
 };
 
-static const JSCFunctionListEntry gumjs_frida_entries[] =
+static const JSCFunctionListEntry gumjs_telco_entries[] =
 {
-  JS_PROP_STRING_DEF ("version", FRIDA_VERSION, JS_PROP_C_W_E),
-  JS_CGETSET_DEF ("heapSize", gumjs_frida_get_heap_size, NULL),
-  JS_CFUNC_DEF ("_loadObjC", 0, gumjs_frida_objc_load),
-  JS_CFUNC_DEF ("_loadSwift", 0, gumjs_frida_swift_load),
-  JS_CFUNC_DEF ("_loadJava", 0, gumjs_frida_java_load),
+  JS_PROP_STRING_DEF ("version", TELCO_VERSION, JS_PROP_C_W_E),
+  JS_CGETSET_DEF ("heapSize", gumjs_telco_get_heap_size, NULL),
+  JS_CFUNC_DEF ("_loadObjC", 0, gumjs_telco_objc_load),
+  JS_CFUNC_DEF ("_loadSwift", 0, gumjs_telco_swift_load),
+  JS_CFUNC_DEF ("_loadJava", 0, gumjs_telco_java_load),
 };
 
 static const JSCFunctionListEntry gumjs_script_entries[] =
@@ -1436,9 +1436,9 @@ _gum_quick_core_init (GumQuickCore * self,
       G_N_ELEMENTS (gumjs_root_entries));
 
   obj = JS_NewObject (ctx);
-  JS_SetPropertyFunctionList (ctx, obj, gumjs_frida_entries,
-      G_N_ELEMENTS (gumjs_frida_entries));
-  JS_DefinePropertyValueStr (ctx, ns, "Frida", obj, JS_PROP_C_W_E);
+  JS_SetPropertyFunctionList (ctx, obj, gumjs_telco_entries,
+      G_N_ELEMENTS (gumjs_telco_entries));
+  JS_DefinePropertyValueStr (ctx, ns, "Telco", obj, JS_PROP_C_W_E);
 
   obj = JS_NewObject (ctx);
   JS_SetPropertyFunctionList (ctx, obj, gumjs_script_entries,
@@ -2047,12 +2047,12 @@ _gum_quick_scope_leave (GumQuickScope * self)
   _gum_quick_stalker_process_pending (core->stalker, self);
 }
 
-GUMJS_DEFINE_GETTER (gumjs_frida_get_heap_size)
+GUMJS_DEFINE_GETTER (gumjs_telco_get_heap_size)
 {
   return JS_NewUint32 (ctx, gum_peek_private_memory_usage ());
 }
 
-GUMJS_DEFINE_FUNCTION (gumjs_frida_objc_load)
+GUMJS_DEFINE_FUNCTION (gumjs_telco_objc_load)
 {
   JSValue loaded = JS_FALSE;
 
@@ -2064,7 +2064,7 @@ GUMJS_DEFINE_FUNCTION (gumjs_frida_objc_load)
   return loaded;
 }
 
-GUMJS_DEFINE_FUNCTION (gumjs_frida_swift_load)
+GUMJS_DEFINE_FUNCTION (gumjs_telco_swift_load)
 {
   JSValue loaded = JS_FALSE;
 
@@ -2076,7 +2076,7 @@ GUMJS_DEFINE_FUNCTION (gumjs_frida_swift_load)
   return loaded;
 }
 
-GUMJS_DEFINE_FUNCTION (gumjs_frida_java_load)
+GUMJS_DEFINE_FUNCTION (gumjs_telco_java_load)
 {
   JSValue loaded = JS_FALSE;
 
@@ -2200,7 +2200,7 @@ GUMJS_DEFINE_FUNCTION (gumjs_script_find_source_map)
     {
       json = program->global_source_map;
     }
-    else if (strcmp (name, "/_frida.js") == 0)
+    else if (strcmp (name, "/_telco.js") == 0)
     {
       json = core->runtime_source_map;
     }

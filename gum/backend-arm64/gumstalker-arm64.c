@@ -3185,7 +3185,7 @@ gum_exec_ctx_write_prolog_helper (GumExecCtx * ctx,
   /*
    * Our prolog and epilog code makes extensive use of the stack to store and
    * restore registers. However, on AArch64, the stack pointer must be aligned
-   * to a 16-byte boundary when it is used to access memory. One anti-Frida
+   * to a 16-byte boundary when it is used to access memory. One anti-Telco
    * technique observed in the wild has been to deliberately misalign the stack
    * pointer to violate this assumption and cause Stalker to attempt to access
    * data on a misaligned stack.
@@ -3658,12 +3658,12 @@ gum_exec_ctx_load_real_register_from_full_frame_into (GumExecCtx * ctx,
 
 /*
  * This exception handler deals with exceptions caused by attempts to access the
- * stack when it isn't 16-byte aligned. Anti-Frida techniques have been observed
+ * stack when it isn't 16-byte aligned. Anti-Telco techniques have been observed
  * in the wild where the stack is deliberately misaligned to cause Stalker to
  * crash when it executes. Since an exception is only thrown when an attempt is
- * made to load or store from a misaligned stack pointer, this anti-Frida code
+ * made to load or store from a misaligned stack pointer, this anti-Telco code
  * can misalign the stack and cause a branch without accessing stack data and
- * hence therefore force FRIDA to deal with a misaligned stack without
+ * hence therefore force TELCO to deal with a misaligned stack without
  * incurring any exceptions itself.
  *
  * We cope with this scenario by making use of a register to act as a proxy for

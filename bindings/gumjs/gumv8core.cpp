@@ -188,10 +188,10 @@ GUMJS_DECLARE_FUNCTION (gumjs_wait_for_event)
 static void gumjs_global_get (Local<Name> property,
     const PropertyCallbackInfo<Value> & info);
 
-GUMJS_DECLARE_GETTER (gumjs_frida_get_heap_size)
-GUMJS_DECLARE_FUNCTION (gumjs_frida_objc_load)
-GUMJS_DECLARE_FUNCTION (gumjs_frida_swift_load)
-GUMJS_DECLARE_FUNCTION (gumjs_frida_java_load)
+GUMJS_DECLARE_GETTER (gumjs_telco_get_heap_size)
+GUMJS_DECLARE_FUNCTION (gumjs_telco_objc_load)
+GUMJS_DECLARE_FUNCTION (gumjs_telco_swift_load)
+GUMJS_DECLARE_FUNCTION (gumjs_telco_java_load)
 
 GUMJS_DECLARE_FUNCTION (gumjs_script_evaluate)
 GUMJS_DECLARE_FUNCTION (gumjs_script_load)
@@ -378,18 +378,18 @@ static const GumV8Function gumjs_global_functions[] =
   { NULL, NULL }
 };
 
-static const GumV8Property gumjs_frida_values[] =
+static const GumV8Property gumjs_telco_values[] =
 {
-  { "heapSize", gumjs_frida_get_heap_size, NULL },
+  { "heapSize", gumjs_telco_get_heap_size, NULL },
 
   { NULL, NULL }
 };
 
-static const GumV8Function gumjs_frida_functions[] =
+static const GumV8Function gumjs_telco_functions[] =
 {
-  { "_loadObjC", gumjs_frida_objc_load },
-  { "_loadSwift", gumjs_frida_swift_load },
-  { "_loadJava", gumjs_frida_java_load },
+  { "_loadObjC", gumjs_telco_objc_load },
+  { "_loadSwift", gumjs_telco_swift_load },
+  { "_loadJava", gumjs_telco_java_load },
 
   { NULL, NULL }
 };
@@ -544,11 +544,11 @@ _gum_v8_core_init (GumV8Core * self,
       );
   scope->SetHandler (global_access);
 
-  auto frida = _gum_v8_create_module ("Frida", scope, isolate);
-  _gum_v8_module_add (module, frida, gumjs_frida_values, isolate);
-  _gum_v8_module_add (module, frida, gumjs_frida_functions, isolate);
-  frida->Set (_gum_v8_string_new_ascii (isolate, "version"),
-      _gum_v8_string_new_ascii (isolate, FRIDA_VERSION), ReadOnly);
+  auto telco = _gum_v8_create_module ("Telco", scope, isolate);
+  _gum_v8_module_add (module, telco, gumjs_telco_values, isolate);
+  _gum_v8_module_add (module, telco, gumjs_telco_functions, isolate);
+  telco->Set (_gum_v8_string_new_ascii (isolate, "version"),
+      _gum_v8_string_new_ascii (isolate, TELCO_VERSION), ReadOnly);
 
   auto script_module = _gum_v8_create_module ("Script", scope, isolate);
   _gum_v8_module_add (module, script_module, gumjs_script_functions, isolate);
@@ -1632,12 +1632,12 @@ gumjs_global_get (Local<Name> property,
   }
 }
 
-GUMJS_DEFINE_GETTER (gumjs_frida_get_heap_size)
+GUMJS_DEFINE_GETTER (gumjs_telco_get_heap_size)
 {
   info.GetReturnValue ().Set (gum_peek_private_memory_usage ());
 }
 
-GUMJS_DEFINE_FUNCTION (gumjs_frida_objc_load)
+GUMJS_DEFINE_FUNCTION (gumjs_telco_objc_load)
 {
   bool loaded = false;
 
@@ -1652,7 +1652,7 @@ GUMJS_DEFINE_FUNCTION (gumjs_frida_objc_load)
   info.GetReturnValue ().Set (loaded);
 }
 
-GUMJS_DEFINE_FUNCTION (gumjs_frida_swift_load)
+GUMJS_DEFINE_FUNCTION (gumjs_telco_swift_load)
 {
   bool loaded = false;
 
@@ -1667,7 +1667,7 @@ GUMJS_DEFINE_FUNCTION (gumjs_frida_swift_load)
   info.GetReturnValue ().Set (loaded);
 }
 
-GUMJS_DEFINE_FUNCTION (gumjs_frida_java_load)
+GUMJS_DEFINE_FUNCTION (gumjs_telco_java_load)
 {
   bool loaded = false;
 
@@ -1795,7 +1795,7 @@ GUMJS_DEFINE_FUNCTION (gumjs_script_find_source_map)
     }
     else
     {
-      if (strcmp (name, "/_frida.js") == 0)
+      if (strcmp (name, "/_telco.js") == 0)
       {
         json = core->runtime_source_map;
       }

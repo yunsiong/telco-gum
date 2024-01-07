@@ -421,7 +421,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\vapi\frida-gumjs-1.0.vapi">
+    <None Include="..\..\vapi\telco-gumjs-1.0.vapi">
       <Filter>vapi</Filter>
     </None>
     <None Include="runtime\entrypoint-v8.js">

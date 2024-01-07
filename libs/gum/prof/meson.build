@@ -58,8 +58,8 @@ endif
 
 install_headers(gum_prof_headers, subdir: install_header_subdir + '/prof')
 
-gum_prof = library('frida-gum-prof-' + api_version, gum_prof_sources,
-  c_args: frida_component_cflags,
+gum_prof = library('telco-gum-prof-' + api_version, gum_prof_sources,
+  c_args: telco_component_cflags,
   include_directories: gum_incdirs,
   dependencies: [gum_dep],
   install: true,
@@ -68,13 +68,13 @@ gum_prof = library('frida-gum-prof-' + api_version, gum_prof_sources,
 gum_prof_dep = declare_dependency(link_with: gum_prof)
 
 pkg = import('pkgconfig')
-pkg.generate(filebase: 'frida-gum-prof-' + api_version,
+pkg.generate(filebase: 'telco-gum-prof-' + api_version,
   name: 'GumProf',
   version: gum_version,
   description: 'Profiling library built on top of Gum',
-  requires: ['frida-gum-' + api_version],
+  requires: ['telco-gum-' + api_version],
   subdirs: install_header_basedir,
   libraries: [gum_prof],
 )
 
-meson.override_dependency('frida-gum-prof-' + api_version, gum_prof_dep)
+meson.override_dependency('telco-gum-prof-' + api_version, gum_prof_dep)

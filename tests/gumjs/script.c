@@ -168,8 +168,8 @@ TESTLIST_BEGIN (script)
     TESTENTRY (memory_access_can_be_monitored_one_range)
   TESTGROUP_END ()
 
-  TESTENTRY (frida_version_is_available)
-  TESTENTRY (frida_heap_size_can_be_queried)
+  TESTENTRY (telco_version_is_available)
+  TESTENTRY (telco_heap_size_can_be_queried)
 
   TESTGROUP_BEGIN ("Process")
     TESTENTRY (process_arch_is_available)
@@ -1512,7 +1512,7 @@ TESTCASE (native_function_can_be_invoked_with_size_t)
    *
    * Conclusion: If the maximum object size of an implementation corresponds to
    * the address-width, it could be assumed that SIZE_MAX will not exceed
-   * UINT64_MAX, for architectures in Frida's scope. This again means, that for
+   * UINT64_MAX, for architectures in Telco's scope. This again means, that for
    * the JavaScript runtimes all possible “size_t” values could be represented
    * as “uint64” (as 64bit SIZE_MAX of 1844674407370955161UL would exceed the
    * limits of JavaScript “Number.MAX_SAFE_INTEGER”).
@@ -3559,7 +3559,7 @@ TESTCASE (inline_sqlite_database_can_be_queried)
 
       /* 6: blob column */
       "s = db.prepare('SELECT avatar FROM people WHERE name = ?');\n"
-      "s.bindText(1, 'Frida');\n"
+      "s.bindText(1, 'Telco');\n"
       "send('avatar', s.step()[0]);\n"
       "send(s.step());\n"
       "s.reset();\n"
@@ -3570,7 +3570,7 @@ TESTCASE (inline_sqlite_database_can_be_queried)
   /* 1: bindInteger() */
   EXPECT_SEND_MESSAGE_WITH ("[\"Joe\",42]");
   EXPECT_SEND_MESSAGE_WITH ("null");
-  EXPECT_SEND_MESSAGE_WITH ("[\"Frida\",7]");
+  EXPECT_SEND_MESSAGE_WITH ("[\"Telco\",7]");
 
   /* 2: bindFloat() */
   EXPECT_SEND_MESSAGE_WITH ("[\"Joe\"]");
@@ -3580,7 +3580,7 @@ TESTCASE (inline_sqlite_database_can_be_queried)
   EXPECT_SEND_MESSAGE_WITH ("[42]");
 
   /* 4: bindBlob() */
-  EXPECT_SEND_MESSAGE_WITH ("[\"Frida\"]");
+  EXPECT_SEND_MESSAGE_WITH ("[\"Telco\"]");
   EXPECT_SEND_MESSAGE_WITH ("null");
 
   /* 5: bindNull() */
@@ -3619,7 +3619,7 @@ TESTCASE (external_sqlite_database_can_be_queried)
               "avatar BLOB"
           ");"
           "INSERT INTO people VALUES (1, 'Joe', 42, 117, NULL);"
-          "INSERT INTO people VALUES (2, 'Frida', 7, 140, X'1337');"
+          "INSERT INTO people VALUES (2, 'Telco', 7, 140, X'1337');"
           "COMMIT;"
       "\");\n"
       "send(db.dump());\n"
@@ -3682,7 +3682,7 @@ TESTCASE (external_sqlite_database_can_be_opened_with_flags)
                   "avatar BLOB"
               ");"
               "INSERT INTO people VALUES (1, 'Joe', 42, 117, NULL);"
-              "INSERT INTO people VALUES (2, 'Frida', 7, 140, X'1337');"
+              "INSERT INTO people VALUES (2, 'Telco', 7, 140, X'1337');"
               "COMMIT;"
           "\");\n"
           "send('can write');\n"
@@ -3858,7 +3858,7 @@ TESTCASE (socket_connection_can_be_established)
         "  try {"
         "    const listener = await Socket.listen({"
         "      type: 'path',"
-        "      path: '%s/frida-gum-test-listener-' + Process.id,"
+        "      path: '%s/telco-gum-test-listener-' + Process.id,"
         "      backlog: 1,"
         "    });"
         "    launchClient({"
@@ -3921,7 +3921,7 @@ TESTCASE (socket_connection_can_be_established_with_tls)
       "      'Connection: close',"
       "      'Host: www.google.com',"
       "      'Accept: text/html',"
-      "      'User-Agent: Frida/" FRIDA_VERSION "',"
+      "      'User-Agent: Telco/" TELCO_VERSION "',"
       "      '',"
       "      '',"
       "    ].join('\\r\\n');"
@@ -4820,15 +4820,15 @@ TESTCASE (stalker_events_can_be_parsed)
   EXPECT_ERROR_MESSAGE_WITH (ANY_LINE_NUMBER, "Error: invalid event type");
 }
 
-TESTCASE (frida_version_is_available)
+TESTCASE (telco_version_is_available)
 {
-  COMPILE_AND_LOAD_SCRIPT ("send(typeof Frida.version);");
+  COMPILE_AND_LOAD_SCRIPT ("send(typeof Telco.version);");
   EXPECT_SEND_MESSAGE_WITH ("\"string\"");
 }
 
-TESTCASE (frida_heap_size_can_be_queried)
+TESTCASE (telco_heap_size_can_be_queried)
 {
-  COMPILE_AND_LOAD_SCRIPT ("send(typeof Frida.heapSize);");
+  COMPILE_AND_LOAD_SCRIPT ("send(typeof Telco.heapSize);");
   EXPECT_SEND_MESSAGE_WITH ("\"number\"");
 }
 
@@ -5762,32 +5762,32 @@ TESTCASE (rpc_can_be_performed)
       "};");
   EXPECT_NO_MESSAGES ();
 
-  POST_MESSAGE ("[\"frida:rpc\",1,\"list\"]");
-  EXPECT_SEND_MESSAGE_WITH ("[\"frida:rpc\",1,\"ok\","
+  POST_MESSAGE ("[\"telco:rpc\",1,\"list\"]");
+  EXPECT_SEND_MESSAGE_WITH ("[\"telco:rpc\",1,\"ok\","
       "[\"foo\",\"bar\",\"badger\",\"returnNull\"]]");
 
-  POST_MESSAGE ("[\"frida:rpc\",2,\"call\",\"foo\",[1,2]]");
-  EXPECT_SEND_MESSAGE_WITH ("[\"frida:rpc\",2,\"ok\",3]");
+  POST_MESSAGE ("[\"telco:rpc\",2,\"call\",\"foo\",[1,2]]");
+  EXPECT_SEND_MESSAGE_WITH ("[\"telco:rpc\",2,\"ok\",3]");
 
-  POST_MESSAGE ("[\"frida:rpc\",3,\"call\",\"foo\",[1,-2]]");
-  EXPECT_SEND_MESSAGE_WITH_PREFIX ("[\"frida:rpc\",3,\"error\",\"no\",");
+  POST_MESSAGE ("[\"telco:rpc\",3,\"call\",\"foo\",[1,-2]]");
+  EXPECT_SEND_MESSAGE_WITH_PREFIX ("[\"telco:rpc\",3,\"error\",\"no\",");
 
-  POST_MESSAGE ("[\"frida:rpc\",4,\"call\",\"bar\",[3,4]]");
-  EXPECT_SEND_MESSAGE_WITH ("[\"frida:rpc\",4,\"ok\",7]");
+  POST_MESSAGE ("[\"telco:rpc\",4,\"call\",\"bar\",[3,4]]");
+  EXPECT_SEND_MESSAGE_WITH ("[\"telco:rpc\",4,\"ok\",7]");
 
-  POST_MESSAGE ("[\"frida:rpc\",5,\"call\",\"bar\",[3,-4]]");
-  EXPECT_SEND_MESSAGE_WITH_PREFIX ("[\"frida:rpc\",5,\"error\",\"nope\",");
+  POST_MESSAGE ("[\"telco:rpc\",5,\"call\",\"bar\",[3,-4]]");
+  EXPECT_SEND_MESSAGE_WITH_PREFIX ("[\"telco:rpc\",5,\"error\",\"nope\",");
 
-  POST_MESSAGE ("[\"frida:rpc\",6,\"call\",\"baz\",[]]");
-  EXPECT_SEND_MESSAGE_WITH ("[\"frida:rpc\",6,\"error\","
+  POST_MESSAGE ("[\"telco:rpc\",6,\"call\",\"baz\",[]]");
+  EXPECT_SEND_MESSAGE_WITH ("[\"telco:rpc\",6,\"error\","
       "\"unable to find method 'baz'\"]");
 
-  POST_MESSAGE ("[\"frida:rpc\",7,\"call\",\"badger\",[]]");
-  EXPECT_SEND_MESSAGE_WITH_PAYLOAD_AND_DATA ("[\"frida:rpc\",7,\"ok\",{}]",
+  POST_MESSAGE ("[\"telco:rpc\",7,\"call\",\"badger\",[]]");
+  EXPECT_SEND_MESSAGE_WITH_PAYLOAD_AND_DATA ("[\"telco:rpc\",7,\"ok\",{}]",
       "59 6f");
 
-  POST_MESSAGE ("[\"frida:rpc\",8,\"call\",\"returnNull\",[]]");
-  EXPECT_SEND_MESSAGE_WITH ("[\"frida:rpc\",8,\"ok\",null]");
+  POST_MESSAGE ("[\"telco:rpc\",8,\"call\",\"returnNull\",[]]");
+  EXPECT_SEND_MESSAGE_WITH ("[\"telco:rpc\",8,\"ok\",null]");
 }
 
 TESTCASE (message_can_be_sent)
@@ -10351,7 +10351,7 @@ TESTCASE (dynamic_script_loaded_should_support_separate_source_map)
   COMPILE_AND_LOAD_SCRIPT (
       "async function main() {"
         "Script.registerSourceMap('/agent/math.js', `{\"version\":3,\"file\":\""
-          "math.js\",\"sourceRoot\":\"/Users/oleavr/src/frida-agent-example/\","
+          "math.js\",\"sourceRoot\":\"/Users/oleavr/src/telco-agent-example/\","
           "\"sources\":[\"agent/math.ts\"],\"names\":[],\"mappings\":\"AAAA,MAA"
           "M,UAAU,GAAG,CAAC,CAAS,EAAE,CAAS;IACpC,MAAM,IAAI,KAAK,CAAC,qBAAqB,CAA"
           "C,CAAC;AAC3C,CAAC\"}`);"
@@ -10360,7 +10360,7 @@ TESTCASE (dynamic_script_loaded_should_support_separate_source_map)
           "    throw new Error(\"not yet implemented\");\n"
           "}\n`);"
         "Script.registerSourceMap('/agent/index.js', `{\"version\":3,\"file\":"
-          "\"index.js\",\"sourceRoot\":\"/Users/oleavr/src/frida-agent-example/"
+          "\"index.js\",\"sourceRoot\":\"/Users/oleavr/src/telco-agent-example/"
           "\",\"sources\":[\"agent/index.ts\"],\"names\":[],\"mappings\":\"AAAA"
           ",OAAO,KAAK,IAAI,MAAM,WAAW,CAAC;AAElC,IAAI;IACA,IAAI,CAAC,GAAG,CAAC,C"
           "AAC,EAAE,CAAC,CAAC,CAAC;CAClB;AAAC,OAAO,CAAC,EAAE;IACR,IAAI,CAAE,CAA"
@@ -10514,7 +10514,7 @@ TESTCASE (source_maps_should_be_supported_for_our_runtime)
   COMPILE_AND_LOAD_SCRIPT ("hexdump(null);");
 
   item = test_script_fixture_pop_message (fixture);
-  g_assert_nonnull (strstr (item->message, " (frida/runtime/hexdump.js:"));
+  g_assert_nonnull (strstr (item->message, " (telco/runtime/hexdump.js:"));
   test_script_message_item_free (item);
 
   EXPECT_NO_MESSAGES ();
@@ -10608,9 +10608,9 @@ TESTCASE (source_maps_should_be_supported_for_user_scripts)
         "    at add (math.js:5)\\n"
         "    at <anonymous> (index.js:6)\\n"
         "    at call (native)\\n"
-        "    at s (node_modules/frida/node_modules/browserify/node_modules/"
+        "    at s (node_modules/telco/node_modules/browserify/node_modules/"
             "browser-pack/_prelude.js:1)\\n"
-        "    at e (node_modules/frida/node_modules/browserify/node_modules/"
+        "    at e (node_modules/telco/node_modules/browserify/node_modules/"
             "browser-pack/_prelude.js:1)\\n"
         "    at <eval> (/testcase.js:25)"));
   }
@@ -10620,11 +10620,11 @@ TESTCASE (source_maps_should_be_supported_for_user_scripts)
         "\"payload\":\"Error: not yet implemented\\n"
         "    at Object.add (math.js:5:1)\\n"
         "    at Object.1../math (index.js:6:1)\\n"
-        "    at s (node_modules/frida/node_modules/browserify/node_modules/"
+        "    at s (node_modules/telco/node_modules/browserify/node_modules/"
             "browser-pack/_prelude.js:1:1)\\n"
-        "    at e (node_modules/frida/node_modules/browserify/node_modules/"
+        "    at e (node_modules/telco/node_modules/browserify/node_modules/"
             "browser-pack/_prelude.js:1:1)\\n"
-        "    at node_modules/frida/node_modules/browserify/node_modules/"
+        "    at node_modules/telco/node_modules/browserify/node_modules/"
             "browser-pack/_prelude.js:1:1\""));
   }
   test_script_message_item_free (item);

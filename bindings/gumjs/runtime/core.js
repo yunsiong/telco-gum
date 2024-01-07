@@ -116,8 +116,8 @@ Object.defineProperties(engine, {
     configurable: true,
     get: function () {
       let m;
-      if (Frida._loadObjC())
-        m = Frida._objc;
+      if (Telco._loadObjC())
+        m = Telco._objc;
       else
         m = makeStubBridge();
       Object.defineProperty(engine, 'ObjC', { value: m });
@@ -129,8 +129,8 @@ Object.defineProperties(engine, {
     configurable: true,
     get: function () {
       let m;
-      if (Frida._loadSwift())
-        m = Frida._swift;
+      if (Telco._loadSwift())
+        m = Telco._swift;
       else
         m = makeStubBridge();
       Object.defineProperty(engine, 'Swift', { value: m });
@@ -142,8 +142,8 @@ Object.defineProperties(engine, {
     configurable: true,
     get: function () {
       let m;
-      if (Frida._loadJava())
-        m = Frida._java;
+      if (Telco._loadJava())
+        m = Telco._java;
       else
         m = makeStubBridge();
       Object.defineProperty(engine, 'Java', { value: m });

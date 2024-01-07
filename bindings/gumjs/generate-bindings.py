@@ -2586,14 +2586,14 @@ def generate_class_type_definitions(name, arch, flavor, api):
                 description += """,
      * but without a label for internal use. This breaks relocation of branches to
      * locations inside the relocated range, and is an optimization for use-cases
-     * where all branches are rewritten (e.g. Frida's Stalker)"""
+     * where all branches are rewritten (e.g. Telco's Stalker)"""
         elif method.name.startswith("write_one"):
             description = "Writes the next buffered instruction"
             if method.name.endswith("_no_label"):
                 description += """, but without a
      * label for internal use. This breaks relocation of branches to locations
      * inside the relocated range, and is an optimization for use-cases where all
-     * branches are rewritten (e.g. Frida's Stalker)"""
+     * branches are rewritten (e.g. Telco's Stalker)"""
         elif method.name == "copy_one":
             description = """Copies out the next buffered instruction without advancing the
      * output cursor, allowing the same instruction to be written out
@@ -2855,14 +2855,14 @@ def generate_class_api_reference(name, arch, flavor, api):
                 description += """,
     but without a label for internal use. This breaks relocation of branches to
     locations inside the relocated range, and is an optimization for use-cases
-    where all branches are rewritten (e.g. Frida's Stalker)."""
+    where all branches are rewritten (e.g. Telco's Stalker)."""
         elif method.name.startswith("write_one"):
             description = "write the next buffered instruction"
             if method.name.endswith("_no_label"):
                 description += """, but without a
     label for internal use. This breaks relocation of branches to locations
     inside the relocated range, and is an optimization for use-cases where all
-    branches are rewritten (e.g. Frida's Stalker)."""
+    branches are rewritten (e.g. Telco's Stalker)."""
         elif method.name == "copy_one":
             description = """copy out the next buffered instruction without advancing the
     output cursor, allowing the same instruction to be written out multiple

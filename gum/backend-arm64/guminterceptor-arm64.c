@@ -545,7 +545,7 @@ gum_enumerate_grafted_segment_pairs (gconstpointer mach_header,
       {
         slide = (guint8 *) mach_header - (guint8 *) sc->vmaddr;
       }
-      else if (g_str_has_prefix (sc->segname, "__FRIDA_DATA"))
+      else if (g_str_has_prefix (sc->segname, "__TELCO_DATA"))
       {
         GumGraftedHeader * header = GSIZE_TO_POINTER (sc->vmaddr + slide);
 

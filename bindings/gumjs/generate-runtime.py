@@ -12,19 +12,19 @@ import sys
 
 
 RELAXED_DEPS = {
-    "frida-compile": "^10.2.5",
+    "telco-compile": "^10.2.5",
 }
 
 EXACT_DEPS = {
-    "frida-java-bridge": "6.2.6",
-    "frida-objc-bridge": "7.0.5",
-    "frida-swift-bridge": "2.0.7"
+    "telco-java-bridge": "6.2.6",
+    "telco-objc-bridge": "7.0.5",
+    "telco-swift-bridge": "2.0.7"
 }
 
 
 def generate_runtime(backends, arch, endian, input_dir, gum_dir, capstone_incdir, libtcc_incdir, quickcompile, output_dir):
-    frida_compile = output_dir / "node_modules" / ".bin" / make_script_filename("frida-compile")
-    if not frida_compile.exists():
+    telco_compile = output_dir / "node_modules" / ".bin" / make_script_filename("telco-compile")
+    if not telco_compile.exists():
         pkg_files = [output_dir / "package.json", output_dir / "package-lock.json"]
         for f in pkg_files:
             if f.exists():
@@ -53,7 +53,7 @@ def generate_runtime(backends, arch, endian, input_dir, gum_dir, capstone_incdir
             message = "\n".join([
                 "",
                 "***",
-                "Failed to bootstrap frida-compile:",
+                "Failed to bootstrap telco-compile:",
                 "\t" + str(e),
                 "It appears Node.js is not installed.",
                 "We need it for processing JavaScript code at build-time.",
@@ -73,7 +73,7 @@ def generate_runtime(backends, arch, endian, input_dir, gum_dir, capstone_incdir
 
     if "qjs" in backends:
         quick_tmp_dir = Path("runtime-build-quick")
-        runtime = quick_tmp_dir / "frida.js"
+        runtime = quick_tmp_dir / "telco.js"
         objc = quick_tmp_dir / "objc.js"
         swift = quick_tmp_dir / "swift.js"
         java = quick_tmp_dir / "java.js"
@@ -81,10 +81,10 @@ def generate_runtime(backends, arch, endian, input_dir, gum_dir, capstone_incdir
         quick_options = [
             "-c", # Compress for smaller code and better performance.
         ]
-        subprocess.run([frida_compile, runtime_reldir / "entrypoint-quickjs.js", "-o", runtime] + quick_options, cwd=output_dir, check=True)
-        subprocess.run([frida_compile, runtime_reldir / "objc.js", "-o", objc] + quick_options, cwd=output_dir, check=True)
-        subprocess.run([frida_compile, runtime_reldir / "swift.js", "-o", swift] + quick_options, cwd=output_dir, check=True)
-        subprocess.run([frida_compile, runtime_reldir / "java.js", "-o", java] + quick_options, cwd=output_dir, check=True)
+        subprocess.run([telco_compile, runtime_reldir / "entrypoint-quickjs.js", "-o", runtime] + quick_options, cwd=output_dir, check=True)
+        subprocess.run([telco_compile, runtime_reldir / "objc.js", "-o", objc] + quick_options, cwd=output_dir, check=True)
+        subprocess.run([telco_compile, runtime_reldir / "swift.js", "-o", swift] + quick_options, cwd=output_dir, check=True)
+        subprocess.run([telco_compile, runtime_reldir / "java.js", "-o", java] + quick_options, cwd=output_dir, check=True)
 
         qcflags = []
         if endian != sys.byteorder:
@@ -98,7 +98,7 @@ def generate_runtime(backends, arch, endian, input_dir, gum_dir, capstone_incdir
 
     if "v8" in backends:
         v8_tmp_dir = Path("runtime-build-v8")
-        runtime = v8_tmp_dir / "frida.js"
+        runtime = v8_tmp_dir / "telco.js"
         objc = v8_tmp_dir / "objc.js"
         swift = v8_tmp_dir / "swift.js"
         java = v8_tmp_dir / "java.js"
@@ -106,10 +106,10 @@ def generate_runtime(backends, arch, endian, input_dir, gum_dir, capstone_incdir
         v8_options = [
             "-c", # Compress for smaller code and better performance.
         ]
-        subprocess.run([frida_compile, runtime_reldir / "entrypoint-v8.js", "-o", runtime] + v8_options, cwd=output_dir, check=True)
-        subprocess.run([frida_compile, runtime_reldir / "objc.js", "-o", objc] + v8_options, cwd=output_dir, check=True)
-        subprocess.run([frida_compile, runtime_reldir / "swift.js", "-o", swift] + v8_options, cwd=output_dir, check=True)
-        subprocess.run([frida_compile, runtime_reldir / "java.js", "-o", java] + v8_options, cwd=output_dir, check=True)
+        subprocess.run([telco_compile, runtime_reldir / "entrypoint-v8.js", "-o", runtime] + v8_options, cwd=output_dir, check=True)
+        subprocess.run([telco_compile, runtime_reldir / "objc.js", "-o", objc] + v8_options, cwd=output_dir, check=True)
+        subprocess.run([telco_compile, runtime_reldir / "swift.js", "-o", swift] + v8_options, cwd=output_dir, check=True)
+        subprocess.run([telco_compile, runtime_reldir / "java.js", "-o", java] + v8_options, cwd=output_dir, check=True)
 
         generate_runtime_v8("runtime", output_dir, "gumv8script-runtime.h", [runtime])
         generate_runtime_v8("objc", output_dir, "gumv8script-objc.h", [objc])
@@ -265,11 +265,11 @@ def generate_runtime_cmodule(output_dir, output, arch, input_dir, gum_dir, capst
         return is_header(name) and name != "tcclib.h"
 
     inputs = [
-        (input_dir / "runtime" / "cmodule", None, is_header, identity_transform, 'GUM_CHEADER_FRIDA'),
+        (input_dir / "runtime" / "cmodule", None, is_header, identity_transform, 'GUM_CHEADER_TELCO'),
         (input_dir / "runtime" / "cmodule-tcc", None, is_header, identity_transform, 'GUM_CHEADER_TCC'),
         (libtcc_incdir, None, libtcc_is_header, identity_transform, 'GUM_CHEADER_TCC'),
-        (gum_dir / ("arch-" + writer_arch), gum_dir.parent, gum_header_matches_writer, optimize_gum_header, 'GUM_CHEADER_FRIDA'),
-        (capstone_incdir, None, capstone_header_matches_arch, optimize_capstone_header, 'GUM_CHEADER_FRIDA'),
+        (gum_dir / ("arch-" + writer_arch), gum_dir.parent, gum_header_matches_writer, optimize_gum_header, 'GUM_CHEADER_TELCO'),
+        (capstone_incdir, None, capstone_header_matches_arch, optimize_capstone_header, 'GUM_CHEADER_TELCO'),
     ]
 
     with (output_dir / output).open('w', encoding='utf-8') as output_file:
@@ -387,7 +387,7 @@ def extract_source_map(filename, source_code):
 
 
 def to_canonical_source_path(path):
-    return "frida/" + path
+    return "telco/" + path
 
 
 def write_bytes(data, sink, encoding):
@@ -412,7 +412,7 @@ def write_bytes(data, sink, encoding):
 
 def identifier(filename):
     result = ""
-    if filename.startswith("frida-"):
+    if filename.startswith("telco-"):
         filename = filename[6:]
     for c in filename:
         if c.isalnum():

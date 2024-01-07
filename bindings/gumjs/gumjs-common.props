@@ -3,11 +3,11 @@
 
   <ItemDefinitionGroup>
     <ClCompile>
-      <PreprocessorDefinitions>GUM_STATIC;_CRT_SECURE_NO_WARNINGS;$(FridaGumDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GUM_STATIC;_CRT_SECURE_NO_WARNINGS;$(TelcoGumDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(IntDir)gumjs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(FridaV8)'=='Enabled'">
+  <ItemDefinitionGroup Condition="'$(TelcoV8)'=='Enabled'">
     <ClCompile>
       <PreprocessorDefinitions>HAVE_V8=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -94,7 +94,7 @@
     <ClCompile Include="gumquickcoderelocator.c" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(FridaV8)'=='Enabled'">
+  <ItemGroup Condition="'$(TelcoV8)'=='Enabled'">
     <ClInclude Include="gumv8scriptbackend.h" />
     <ClInclude Include="gumv8script.h" />
     <ClInclude Include="gumv8script-priv.h" />
@@ -127,7 +127,7 @@
     <ClInclude Include="gumv8codewriter.h" />
     <ClInclude Include="gumv8coderelocator.h" />
   </ItemGroup>
-  <ItemGroup Condition="'$(FridaV8)'=='Enabled'">
+  <ItemGroup Condition="'$(TelcoV8)'=='Enabled'">
     <ClCompile Include="gumv8scriptbackend.cpp" />
     <ClCompile Include="gumv8script.cpp" />
     <ClCompile Include="gumv8platform.cpp" />
@@ -218,7 +218,7 @@ REM. &gt; $(IntDir)gumjs\runtime.stamp
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\vapi\frida-gumjs-1.0.vapi" />
+    <None Include="..\..\vapi\telco-gumjs-1.0.vapi" />
   </ItemGroup>
 
 </Project>

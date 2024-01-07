@@ -481,7 +481,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="vapi\frida-gum-1.0.vapi">
+    <None Include="vapi\telco-gum-1.0.vapi">
       <Filter>vapi</Filter>
     </None>
   </ItemGroup>

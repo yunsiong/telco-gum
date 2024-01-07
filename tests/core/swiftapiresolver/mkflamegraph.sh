@@ -30,8 +30,8 @@ trap clean_up EXIT
 "$repo/tools/symbolicate.py" \
   --input "$instruments_profile" \
   --output "$stacks_symbolicated" \
-  --declare-module $buildpfx/frida-core/lib/agent/libfrida-agent-modulated.dylib:$agent_base \
-  --declare-module $buildpfx/frida-gum/tests/core/swiftapiresolver/libtestswiftapiresolver.dylib:$tests_base
+  --declare-module $buildpfx/telco-core/lib/agent/libtelco-agent-modulated.dylib:$agent_base \
+  --declare-module $buildpfx/telco-gum/tests/core/swiftapiresolver/libtestswiftapiresolver.dylib:$tests_base
 "$flamegraph/stackcollapse-instruments.pl" "$stacks_symbolicated" \
   | grep gum_script_scheduler_run_js_loop \
   > "$stacks_folded"

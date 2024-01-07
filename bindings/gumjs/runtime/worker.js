@@ -28,7 +28,7 @@ class Worker {
 
     const {payload} = message;
 
-    if (Array.isArray(payload) && payload[0] === 'frida:rpc') {
+    if (Array.isArray(payload) && payload[0] === 'telco:rpc') {
       const [, id, operation, ...params] = payload;
       this._onRpcMessage(id, operation, params, data);
       return;
@@ -50,7 +50,7 @@ class Worker {
           reject(error);
       });
 
-      this.post(['frida:rpc', id, operation].concat(params));
+      this.post(['telco:rpc', id, operation].concat(params));
     });
   }
 

@@ -38,7 +38,7 @@ TESTLIST_BEGIN (interceptor)
   TESTENTRY (attach_detach_torture)
 #endif
   TESTENTRY (thread_id)
-#if defined (HAVE_FRIDA_GLIB) && \
+#if defined (HAVE_TELCO_GLIB) && \
     !(defined (HAVE_ANDROID) && defined (HAVE_ARM64)) && \
     !defined (HAVE_ASAN)
   TESTENTRY (intercepted_free_in_thread_exit)
@@ -57,7 +57,7 @@ TESTLIST_BEGIN (interceptor)
   TESTENTRY (already_replaced)
 #ifndef HAVE_ASAN
   TESTENTRY (replace_one)
-# ifdef HAVE_FRIDA_GLIB
+# ifdef HAVE_TELCO_GLIB
   TESTENTRY (replace_two)
 # endif
 #endif
@@ -239,7 +239,7 @@ TESTCASE (thread_id)
   g_assert_cmpuint (second_thread_id, !=, first_thread_id);
 }
 
-#if defined (HAVE_FRIDA_GLIB) && \
+#if defined (HAVE_TELCO_GLIB) && \
     !(defined (HAVE_ANDROID) && defined (HAVE_ARM64)) && \
     !defined (HAVE_ASAN)
 
@@ -643,7 +643,7 @@ TESTCASE (replace_one)
   free (ret);
 }
 
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
 
 static gpointer replacement_malloc_calling_malloc_and_replaced_free (
     gsize size);

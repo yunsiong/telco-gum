@@ -10,7 +10,7 @@
 TESTLIST_BEGIN (sampler)
   TESTENTRY (cycle)
   TESTENTRY (busy_cycle)
-#if defined (HAVE_FRIDA_GLIB) && !defined (HAVE_ASAN)
+#if defined (HAVE_TELCO_GLIB) && !defined (HAVE_ASAN)
   TESTENTRY (malloc_count)
 #endif
   TESTENTRY (multiple_call_counters)
@@ -74,7 +74,7 @@ struct _MallocCountHelperContext
   GumSample count;
 };
 
-#if defined (HAVE_FRIDA_GLIB) && !defined (HAVE_ASAN)
+#if defined (HAVE_TELCO_GLIB) && !defined (HAVE_ASAN)
 
 static gpointer malloc_count_helper_thread (gpointer data);
 

@@ -404,7 +404,7 @@ gum_code_segment_try_realize (GumCodeSegment * self)
   gint res;
   fsignatures_t sigs;
 
-  self->fd = gum_file_open_tmp ("frida-XXXXXX.dylib", &dylib_path);
+  self->fd = gum_file_open_tmp ("telco-XXXXXX.dylib", &dylib_path);
   if (self->fd == -1)
     return FALSE;
 

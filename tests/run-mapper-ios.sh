@@ -3,15 +3,15 @@
 arch=arm64e
 
 remote_host=iphone
-remote_prefix=/usr/local/opt/frida-tests-$arch
+remote_prefix=/usr/local/opt/telco-tests-$arch
 
 gum_tests=$(dirname "$0")
-gadget_stripped=../../frida-core/lib/gadget/frida-gadget.dylib
-gadget_unstripped=../../frida-core/lib/gadget/_frida-gadget.dylib
+gadget_stripped=../../telco-core/lib/gadget/telco-gadget.dylib
+gadget_unstripped=../../telco-core/lib/gadget/_telco-gadget.dylib
 
-cd "$gum_tests/../../build/tmp_thin-ios-$arch/frida-gum" || exit 1
+cd "$gum_tests/../../build/tmp_thin-ios-$arch/telco-gum" || exit 1
 
-. ../../frida_thin-env-macos-x86_64.rc
+. ../../telco_thin-env-macos-x86_64.rc
 ninja || exit 1
 
 cd tests
@@ -22,7 +22,7 @@ rsync -rLz gum-tests data core/mapper-test $gadget_stripped "$remote_host:$remot
 ssh "$remote_host" "rm -f /var/mobile/Library/Logs/CrashReporter/mapper-test-*"
 
 log_path=$(mktemp "$TMPDIR/mapper-test.XXXXXX")
-ssh "$remote_host" "$remote_prefix/mapper-test $remote_prefix/frida-gadget.dylib" | tee "$log_path"
+ssh "$remote_host" "$remote_prefix/mapper-test $remote_prefix/telco-gadget.dylib" | tee "$log_path"
 
 if [ ${PIPESTATUS[0]} -ne 0 ]; then
   while ! ssh "$remote_host" "ls /var/mobile/Library/Logs/CrashReporter/mapper-test-*" 2>/dev/null; do

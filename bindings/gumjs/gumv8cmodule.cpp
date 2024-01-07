@@ -155,7 +155,7 @@ static void
 gum_store_builtin_header (const GumCHeaderDetails * details,
                           GumGetBuiltinsOperation * op)
 {
-  if (details->kind != GUM_CHEADER_FRIDA)
+  if (details->kind != GUM_CHEADER_TELCO)
     return;
 
   _gum_v8_object_set_utf8 (op->container, details->name, details->data,

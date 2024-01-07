@@ -155,7 +155,7 @@ gum_store_builtin_header (const GumCHeaderDetails * details,
 {
   JSContext * ctx = op->ctx;
 
-  if (details->kind != GUM_CHEADER_FRIDA)
+  if (details->kind != GUM_CHEADER_TELCO)
     return;
 
   JS_DefinePropertyValueStr (ctx, op->container, details->name,

@@ -25,7 +25,7 @@ function MessageDispatcher() {
 
   function handleMessage(rawMessage, data) {
     const message = JSON.parse(rawMessage);
-    if (message instanceof Array && message[0] === 'frida:rpc') {
+    if (message instanceof Array && message[0] === 'telco:rpc') {
       handleRpcMessage(message[1], message[2], message.slice(3));
     } else {
       messages.push([message, data]);
@@ -71,9 +71,9 @@ function MessageDispatcher() {
     params = params || [];
 
     if (result instanceof ArrayBuffer)
-      send(['frida:rpc', id, type, {}].concat(params), result);
+      send(['telco:rpc', id, type, {}].concat(params), result);
     else
-      send(['frida:rpc', id, type, result].concat(params));
+      send(['telco:rpc', id, type, result].concat(params));
   }
 
   function dispatchMessages() {

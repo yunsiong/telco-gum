@@ -23,9 +23,9 @@
 /*
  * History
  *
- * 2014-05-01 Ole André Vadla Ravnås <oleavr@nowsecure.com> for frida-gum:
+ * 2014-05-01 Ole André Vadla Ravnås <oleavr@nowsecure.com> for telco-gum:
  *
- *   - Use frida-gum's memory allocator
+ *   - Use telco-gum's memory allocator
  *   - Drop locale support
  *   - Use GLib
  *   - Rely on modern toolchains

@@ -455,8 +455,8 @@ gum_tcc_cmodule_new (const gchar * source,
   tcc_set_options (state,
       "-Wall "
       "-Werror "
-      "-isystem /frida "
-      "-isystem /frida/capstone "
+      "-isystem /telco "
+      "-isystem /telco/capstone "
       "-nostdinc "
       "-nostdlib"
   );
@@ -622,7 +622,7 @@ gum_tcc_cmodule_load_header (void * opaque,
   guint i;
 
   name = path;
-  if (g_str_has_prefix (name, "/frida/"))
+  if (g_str_has_prefix (name, "/telco/"))
     name += 7;
 
   for (i = 0; i != G_N_ELEMENTS (gum_cmodule_headers); i++)
@@ -1143,7 +1143,7 @@ gum_gcc_cmodule_call_objcopy (GumGccCModule * self,
   const gchar * argv[] = {
     "objcopy",
     "-O", "binary",
-    "--only-section=.frida",
+    "--only-section=.telco",
     "a.out",
     "module",
     NULL
@@ -1197,7 +1197,7 @@ gum_write_linker_script (FILE * file,
 
   fprintf (printer.file,
       "SECTIONS {\n"
-      "  .frida 0x%zx: {\n"
+      "  .telco 0x%zx: {\n"
       "    *(.text*)\n"
       "    *(.data)\n"
       "    *(.bss)\n"
@@ -1730,7 +1730,7 @@ gum_populate_include_dir (const gchar * path,
     gchar * filename, * dirname;
     gboolean written;
 
-    if (h->kind != GUM_CHEADER_FRIDA)
+    if (h->kind != GUM_CHEADER_TELCO)
       continue;
 
     filename = g_build_filename (path, h->name, NULL);

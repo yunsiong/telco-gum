@@ -335,7 +335,7 @@ test_util_get_data_dir (void)
       return find_data_dir_from_executable_path (path);
   }
 
-  return g_strdup ("/Library/Frida/tests/data");
+  return g_strdup ("/Library/Telco/tests/data");
 #elif defined (HAVE_LINUX)
   gchar * result, * path;
 

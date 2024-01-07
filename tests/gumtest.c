@@ -45,7 +45,7 @@ static guint get_number_of_tests_in_suite (GTestSuite * suite);
 gint
 main (gint argc, gchar * argv[])
 {
-#if defined (HAVE_FRIDA_GLIB) && !DEBUG_HEAP_LEAKS && !defined (HAVE_ASAN)
+#if defined (HAVE_TELCO_GLIB) && !DEBUG_HEAP_LEAKS && !defined (HAVE_ASAN)
   GMemVTable mem_vtable = {
     gum_malloc,
     gum_realloc,
@@ -105,7 +105,7 @@ main (gint argc, gchar * argv[])
   }
   else
   {
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
     g_mem_set_vtable (&mem_vtable);
 #endif
   }
@@ -113,7 +113,7 @@ main (gint argc, gchar * argv[])
   g_setenv ("G_SLICE", "always-malloc", TRUE);
 #endif
   g_setenv ("G_DEBUG", "fatal-warnings:fatal-criticals", TRUE);
-#ifdef HAVE_FRIDA_GLIB
+#ifdef HAVE_TELCO_GLIB
   glib_init ();
 # ifdef HAVE_GUMJS
   gio_init ();
@@ -270,7 +270,7 @@ main (gint argc, gchar * argv[])
   TESTLIST_REGISTER (profiler);
 #endif
 
-#if defined (HAVE_GUMJS) && defined (HAVE_FRIDA_GLIB)
+#if defined (HAVE_GUMJS) && defined (HAVE_TELCO_GLIB)
   /* GumJS */
   {
     GumScriptBackend * qjs_backend, * v8_backend;

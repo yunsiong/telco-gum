@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>application-identifier</key>
-	<string>re.frida.GumTests</string>
+	<string>re.telco.GumTests</string>
 	<key>com.apple.private.security.no-container</key>
 	<true/>
 	<key>platform-application</key>

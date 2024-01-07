@@ -1,4 +1,4 @@
-[CCode (cheader_filename = "gum/gum.h", gir_namespace = "FridaGum", gir_version = "1.0")]
+[CCode (cheader_filename = "gum/gum.h", gir_namespace = "TelcoGum", gir_version = "1.0")]
 namespace Gum {
 	public void init ();
 	public void shutdown ();
