@@ -1,5 +1,5 @@
 [wrap-git]
-url = https://github.com/frida/elfutils.git
+url = https://github.com/yunsiong/elfutils.git
 revision = main
 depth = 1
 

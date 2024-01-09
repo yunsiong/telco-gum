@@ -1,7 +1,7 @@
 [library]
 version = "15.1.14"
-browse_url = "https://github.com/telco/telco-gum/"
-repository_url = "https://github.com/telco/telco-gum.git"
+browse_url = "https://github.com/yunsiong/telco-gum/"
+repository_url = "https://github.com/yunsiong/telco-gum.git"
 website_url = "https://telco.re/"
 authors = "Telco Development Team"
 logo_url = "https://telco.re/img/logotype.svg"
@@ -11,4 +11,4 @@ devhelp = true
 search_index = true
 
 [source-location]
-base_url = "https://github.com/telco/telco-gum/blob/master/"
+base_url = "https://github.com/yunsiong/telco-gum/blob/master/"

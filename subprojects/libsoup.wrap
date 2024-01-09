@@ -1,5 +1,5 @@
 [wrap-git]
-url = https://github.com/frida/libsoup.git
+url = https://github.com/yunsiong/libsoup.git
 revision = main
 depth = 1
 

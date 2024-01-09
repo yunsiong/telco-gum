@@ -1,1 +1,1 @@
-Telco._java = require('telco-java-bridge');
+Telco._java = require('frida-java-bridge');

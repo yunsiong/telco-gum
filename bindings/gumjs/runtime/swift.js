@@ -1,1 +1,1 @@
-Telco._swift = require('telco-swift-bridge');
+Telco._swift = require('frida-swift-bridge');

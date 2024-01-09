@@ -12,18 +12,18 @@ import sys
 
 
 RELAXED_DEPS = {
-    "telco-compile": "^10.2.5",
+    "frida-compile": "^10.2.5",
 }
 
 EXACT_DEPS = {
-    "telco-java-bridge": "6.2.6",
-    "telco-objc-bridge": "7.0.5",
-    "telco-swift-bridge": "2.0.7"
+    "frida-java-bridge": "6.2.6",
+    "frida-objc-bridge": "7.0.5",
+    "frida-swift-bridge": "2.0.7"
 }
 
 
 def generate_runtime(backends, arch, endian, input_dir, gum_dir, capstone_incdir, libtcc_incdir, quickcompile, output_dir):
-    telco_compile = output_dir / "node_modules" / ".bin" / make_script_filename("telco-compile")
+    telco_compile = output_dir / "node_modules" / ".bin" / make_script_filename("frida-compile")
     if not telco_compile.exists():
         pkg_files = [output_dir / "package.json", output_dir / "package-lock.json"]
         for f in pkg_files:
@@ -53,7 +53,7 @@ def generate_runtime(backends, arch, endian, input_dir, gum_dir, capstone_incdir
             message = "\n".join([
                 "",
                 "***",
-                "Failed to bootstrap telco-compile:",
+                "Failed to bootstrap frida-compile:",
                 "\t" + str(e),
                 "It appears Node.js is not installed.",
                 "We need it for processing JavaScript code at build-time.",

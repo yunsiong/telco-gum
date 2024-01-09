@@ -1,5 +1,5 @@
 [wrap-git]
-url = https://github.com/frida/quickjs.git
+url = https://github.com/yunsiong/quickjs.git
 revision = main
 depth = 1
 

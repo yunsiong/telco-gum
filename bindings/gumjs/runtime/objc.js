@@ -1,1 +1,1 @@
-Telco._objc = require('telco-objc-bridge');
+Telco._objc = require('frida-objc-bridge');

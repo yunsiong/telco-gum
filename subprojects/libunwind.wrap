@@ -1,5 +1,5 @@
 [wrap-git]
-url = https://github.com/frida/libunwind.git
+url = https://github.com/yunsiong/libunwind.git
 revision = main
 depth = 1
 

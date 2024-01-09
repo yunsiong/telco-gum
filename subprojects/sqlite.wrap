@@ -1,5 +1,5 @@
 [wrap-git]
-url = https://github.com/frida/sqlite.git
+url = https://github.com/yunsiong/sqlite.git
 revision = main
 depth = 1
 
